@@ -5,15 +5,15 @@ import { get } from 'lodash';
 export class CompositeService<T> {
   protected items$: BehaviorSubject<T[]> = new BehaviorSubject<T[]>([]);
 
-  getAll(): T[] {
+  public getAll(): T[] {
     return this.items$.getValue();
   }
 
-  selectAll(): Observable<T[]> {
+  public selectAll(): Observable<T[]> {
     return this.items$;
   }
 
-  add(item: T): void {
+  public add(item: T): void {
     const items: any[] = this.getAll();
 
     items.push(item);
@@ -21,7 +21,7 @@ export class CompositeService<T> {
     this.items$.next(items);
   }
 
-  delete(index: number): void {
+  public delete(index: number): void {
     const items: any[] = this.getAll();
 
     items.splice(index, 1);
@@ -29,11 +29,11 @@ export class CompositeService<T> {
     this.items$.next(items);
   }
 
-  clearAll(): void {
+  public clearAll(): void {
     this.items$.next([]);
   }
 
-  update(item: T, index: number): void {
+  public update(item: T, index: number): void {
     const items: any[] = this.getAll();
 
     items[index] = item;
@@ -41,11 +41,11 @@ export class CompositeService<T> {
     this.items$.next(items);
   }
 
-  getLength(): number {
+  public getLength(): number {
     return this.getAll().length;
   }
 
-  selectLength() {
+  public selectLength() {
     return this.selectAll().pipe(map((items) => items.length));
   }
 

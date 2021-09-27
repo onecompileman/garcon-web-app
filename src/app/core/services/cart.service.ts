@@ -8,7 +8,7 @@ import { cloneDeep } from 'lodash';
   providedIn: 'root',
 })
 export class CartService extends CompositeService<OrderMenu> {
-  addToCart(orderMenu: OrderMenu) {
+  public addToCart(orderMenu: OrderMenu) {
     const propertyName = 'menu.id';
 
     const existingOrderMenuObj = this.getSingleByPropertyValue(
@@ -25,7 +25,7 @@ export class CartService extends CompositeService<OrderMenu> {
     }
   }
 
-  updateCart(orderMenu: OrderMenu) {
+  public updateCart(orderMenu: OrderMenu) {
     const propertyName = 'menu.id';
 
     const existingOrderMenuObj = this.getSingleByPropertyValue(
@@ -40,7 +40,7 @@ export class CartService extends CompositeService<OrderMenu> {
     }
   }
 
-  submitCartAsOrderAndRefresh(): Order {
+  public submitCartAsOrderAndRefresh(): Order {
     const orderMenus = cloneDeep(this.getAll());
     const dateSubmitted = new Date();
 

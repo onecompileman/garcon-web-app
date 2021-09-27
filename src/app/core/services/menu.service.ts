@@ -8,27 +8,27 @@ import { CompositeService } from './composite.service';
   providedIn: 'root',
 })
 export class MenuService extends CompositeService<Menu> {
-  async loadMenuItem(): Promise<void> {
+  public async loadMenuItem(): Promise<void> {
     const res = await fetch('/assets/data/menu.json');
     const menuItems = await res.json();
 
     this.items$.next(menuItems);
   }
-  // Todo: add guards or catch to filter null parameters or add breaker "?"
-  //Todo: Use property name capturing like Keyof
-  getAllByClassification(classification: MenuClassification): Menu[] {
+  public getAllByClassification(
+    classification: MenuClassification = MenuClassification.MAIN_COURSE
+  ): Menu[] {
     const propertyName = 'classification';
 
     return this.getAllByPropertyValue(propertyName, classification);
   }
 
-  getAllChefRecommendation(): Menu[] {
+  public getAllChefRecommendation(): Menu[] {
     const propertyName = 'isChefRecommendation';
 
     return this.getAllByPropertyValue(propertyName, 1);
   }
 
-  getById(id: number): Menu {
+  public getById(id: number): Menu {
     const propertyName = 'id';
 
     return this.getSingleByPropertyValue(propertyName, id).value;

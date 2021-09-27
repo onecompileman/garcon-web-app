@@ -15,7 +15,7 @@ import { CompositeService } from './composite.service';
   providedIn: 'root',
 })
 export class OrderService extends CompositeService<Order> {
-  selectCanBillout(): Observable<boolean> {
+  public selectCanBillout(): Observable<boolean> {
     return this.selectAllOrdersDone().pipe(
       map(
         (ordersDone) =>
@@ -24,53 +24,44 @@ export class OrderService extends CompositeService<Order> {
     );
   }
 
-  //   Todo: add access modifier for all methods
-  selectAllWithRemainingTime(): Observable<Order[]> {
+  public selectAllWithRemainingTime(): Observable<Order[]> {
     return this.selectAll().pipe(
       map((orders) => {
         return orders.map((order) => {
           const dateSubmitted = order.dateSubmitted;
+          const minuteInSeconds = 60;
+          const dateNow = new Date();
 
           order.orderMenus = (<OrderMenu[]>order.orderMenus).map(
             (orderMenu) => {
               const expectedPrepDoneDate = addSeconds(
                 <Date>dateSubmitted,
-                orderMenu.menu.preparationTime * 60
+                orderMenu.menu.preparationTime * minuteInSeconds
               );
               const expectedCookingDoneDate = addSeconds(
                 <Date>dateSubmitted,
-                orderMenu.menu.cookingTime * 60
+                orderMenu.menu.cookingTime * minuteInSeconds
               );
 
               orderMenu.remainingPrepTimeInSeconds = differenceInSeconds(
                 expectedPrepDoneDate,
-                new Date()
+                dateNow
               );
-              orderMenu.prepTimeCompletion =
-                ((orderMenu.menu.preparationTime * 60 -
-                  orderMenu.remainingPrepTimeInSeconds) /
-                  (orderMenu.menu.preparationTime * 60)) *
-                100;
-              orderMenu.prepTimeCompletion =
-                orderMenu.prepTimeCompletion >= 100
-                  ? 100
-                  : orderMenu.prepTimeCompletion;
+              orderMenu.cookingTimeCompletion = this.computeCompletionTime(
+                orderMenu.menu.preparationTime * minuteInSeconds,
+                orderMenu.remainingPrepTimeInSeconds
+              );
 
               if (orderMenu.prepTimeCompletion >= 100) {
                 orderMenu.remainingCookingTimeInSeconds = differenceInSeconds(
                   expectedCookingDoneDate,
-                  new Date()
+                  dateNow
                 );
 
-                orderMenu.cookingTimeCompletion =
-                  ((orderMenu.menu.cookingTime * 60 -
-                    orderMenu.remainingCookingTimeInSeconds) /
-                    (orderMenu.menu.cookingTime * 60)) *
-                  100;
-                orderMenu.cookingTimeCompletion =
-                  orderMenu.cookingTimeCompletion >= 100
-                    ? 100
-                    : orderMenu.cookingTimeCompletion;
+                orderMenu.cookingTimeCompletion = this.computeCompletionTime(
+                  orderMenu.menu.cookingTime * minuteInSeconds,
+                  orderMenu.remainingCookingTimeInSeconds
+                );
               }
               return orderMenu;
             }
@@ -82,8 +73,7 @@ export class OrderService extends CompositeService<Order> {
     );
   }
 
-  //   Todo: for all functions add return types
-  selectAllOrdersDone() {
+  public selectAllOrdersDone(): Observable<Order[]> {
     return this.selectAllWithRemainingTime().pipe(
       map((orders) =>
         orders.filter((order: Order) =>
@@ -95,5 +85,12 @@ export class OrderService extends CompositeService<Order> {
         )
       )
     );
+  }
+
+  private computeCompletionTime(timeToComplete: number, remainingTime: number) {
+    let completionTime =
+      ((timeToComplete - remainingTime) / timeToComplete) * 100;
+
+    return completionTime >= 100 ? 100 : completionTime;
   }
 }
