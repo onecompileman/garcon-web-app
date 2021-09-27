@@ -47,7 +47,7 @@ export class OrderService extends CompositeService<Order> {
                 expectedPrepDoneDate,
                 dateNow
               );
-              orderMenu.cookingTimeCompletion = this.computeCompletionTime(
+              orderMenu.prepTimeCompletion = this.computeCompletionTime(
                 orderMenu.menu.preparationTime * minuteInSeconds,
                 orderMenu.remainingPrepTimeInSeconds
               );
