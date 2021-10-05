@@ -2,9 +2,9 @@
   <h4>Categories</h4>
   <div class="row">
     <div class="col-sm-6 col-xs-12">
-      <a [routerLink]="['/menu', 'recommendation']" class="gc-home__card">
+      <a (click)="addAllChefsRecommendation()" class="gc-home__card">
         <img src="assets/images/recommend.svg" alt="Order" />
-        <span>Chef's Recommendation</span>
+        <span>Add All Chef's Recommendation</span>
       </a>
     </div>
     <div class="col-sm-6 col-xs-12">

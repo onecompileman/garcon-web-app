@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { interval } from 'rxjs';
+import { timer } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { BreadcrumbService } from '../core/services/breadcrumb.service';
 import { OrderService } from '../core/services/order.service';
@@ -40,9 +40,9 @@ export class OrderStatusComponent implements OnInit {
   billOut() {}
 
   private getOrdersPerHeartbeat() {
-    const heartbeatInterval = 2000;
+    const heartbeatInterval = 1000;
 
-    interval(heartbeatInterval)
+    timer(0, heartbeatInterval)
       .pipe(
         switchMap(() => {
           return this.orderService.selectAllWithRemainingTime().pipe(
@@ -67,7 +67,7 @@ export class OrderStatusComponent implements OnInit {
       (acc, order) =>
         acc +
         order.orderMenus.reduce(
-          (acc2, orderMenu) => acc2 + orderMenu.quantity * orderMenu.menu.price,
+          (acc2, orderMenu) => acc2 + orderMenu.quantity * orderMenu.menuPrice,
           0
         ),
       0

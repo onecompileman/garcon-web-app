@@ -17,7 +17,11 @@ export class MenuInfoComponent implements OnInit {
 
   orderMenu: OrderMenu = {
     quantity: 1,
-    menu: null,
+    menuId: 0,
+    menuName: '',
+    menuPrice: 0,
+    menuPreparationTime: 0,
+    menuCookingTime: 0,
   };
 
   constructor(
@@ -70,7 +74,11 @@ export class MenuInfoComponent implements OnInit {
     this.menu = this.menuService.getById(+id);
 
     this.orderMenu = {
-      menu: this.menu,
+      menuId: this.menu.id,
+      menuName: this.menu.name,
+      menuPrice: this.menu.price,
+      menuPreparationTime: this.menu.preparationTime,
+      menuCookingTime: this.menu.cookingTime,
       quantity: 1,
     };
   }

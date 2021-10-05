@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BilloutComponent } from './billout/billout.component';
 import { CartComponent } from './cart/cart.component';
 import { MenuItemsResolver } from './core/resolvers/menu-items.resolver';
 import { HomeComponent } from './home/home.component';
@@ -48,6 +49,11 @@ const routes: Routes = [
     resolve: {
       menu: MenuItemsResolver,
     },
+  },
+
+  {
+    path: 'bill-out',
+    component: BilloutComponent,
   },
 ];
 

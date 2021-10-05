@@ -36,11 +36,11 @@ export class OrderService extends CompositeService<Order> {
             (orderMenu) => {
               const expectedPrepDoneDate = addSeconds(
                 <Date>dateSubmitted,
-                orderMenu.menu.preparationTime * minuteInSeconds
+                orderMenu.menuPreparationTime * minuteInSeconds
               );
               const expectedCookingDoneDate = addSeconds(
                 <Date>dateSubmitted,
-                orderMenu.menu.cookingTime * minuteInSeconds
+                orderMenu.menuCookingTime * minuteInSeconds
               );
 
               orderMenu.remainingPrepTimeInSeconds = differenceInSeconds(
@@ -48,7 +48,7 @@ export class OrderService extends CompositeService<Order> {
                 dateNow
               );
               orderMenu.prepTimeCompletion = this.computeCompletionTime(
-                orderMenu.menu.preparationTime * minuteInSeconds,
+                orderMenu.menuPreparationTime * minuteInSeconds,
                 orderMenu.remainingPrepTimeInSeconds
               );
 
@@ -59,7 +59,7 @@ export class OrderService extends CompositeService<Order> {
                 );
 
                 orderMenu.cookingTimeCompletion = this.computeCompletionTime(
-                  orderMenu.menu.cookingTime * minuteInSeconds,
+                  orderMenu.menuCookingTime * minuteInSeconds,
                   orderMenu.remainingCookingTimeInSeconds
                 );
               }

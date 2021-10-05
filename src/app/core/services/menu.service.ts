@@ -8,11 +8,19 @@ import { CompositeService } from './composite.service';
   providedIn: 'root',
 })
 export class MenuService extends CompositeService<Menu> {
-  public async loadMenuItem(): Promise<void> {
+  public async loadMenuItem(): Promise<Menu[]> {
     const res = await fetch('/assets/data/menu.json');
     const menuItems = await res.json();
 
-    this.items$.next(menuItems);
+    if (menuItems) {
+      this.items$.next(menuItems);
+
+      return menuItems;
+    } else {
+      this.items$.next([]);
+
+      return [];
+    }
   }
   public getAllByClassification(
     classification: MenuClassification = MenuClassification.MAIN_COURSE

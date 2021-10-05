@@ -9,11 +9,11 @@ import { cloneDeep } from 'lodash';
 })
 export class CartService extends CompositeService<OrderMenu> {
   public addToCart(orderMenu: OrderMenu) {
-    const propertyName = 'menu.id';
+    const propertyName = 'menuId';
 
     const existingOrderMenuObj = this.getSingleByPropertyValue(
       propertyName,
-      orderMenu.menu?.id
+      orderMenu.menuId
     );
     const existingOrderMenu = existingOrderMenuObj.value;
 
@@ -26,11 +26,11 @@ export class CartService extends CompositeService<OrderMenu> {
   }
 
   public updateCart(orderMenu: OrderMenu) {
-    const propertyName = 'menu.id';
+    const propertyName = 'menuId';
 
     const existingOrderMenuObj = this.getSingleByPropertyValue(
       propertyName,
-      orderMenu.menu?.id
+      orderMenu.menuId
     );
 
     if (orderMenu.quantity <= 0) {
