@@ -2,6 +2,18 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.2.
 
+## Tests
+
+Most of the test cases are inside the `src/app/core/services` since the main business logic are all here
+
+## Documentation
+
+You can find documentation for the app like Use case, class and activity diagram under "DOCS" folder
+
+## Install depencies
+
+Run `npm install` to install required dependencies.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
