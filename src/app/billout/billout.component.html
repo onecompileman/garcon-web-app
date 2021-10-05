@@ -2,13 +2,11 @@
   <h4>Receipt</h4>
   <div class="row">
     <div class="col-6">Order</div>
-    <div class="col-4">Quantity</div>
-    <div class="col-2">Total</div>
+    <div class="col-2">Quantity</div>
+    <div class="col-4">Total</div>
   </div>
+  <hr />
   <ng-container *ngFor="let order of orders; let i = index">
-    <h5>Order {{ i + 1 }}</h5>
-    <hr />
-
     <div class="row mt-2" *ngFor="let orderMenu of order.orderMenus">
       <div class="col-6">
         {{ orderMenu.menuName }}

@@ -63,7 +63,9 @@ export class CartComponent implements OnInit {
 
   showConfirmDelete(template: TemplateRef<any>, orderToDelete: OrderMenu) {
     this.orderToDelete = orderToDelete;
-    this.modalService.show(template);
+    this.modalRef = this.modalService.show(template, {
+      class: 'modal-dialog-centered',
+    });
   }
 
   private getCartItems() {

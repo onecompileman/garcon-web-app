@@ -90,9 +90,12 @@
   <div class="modal-body">
     This will delete the order, continue?
 
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end mt-5">
       <div class="gc-cart__cancel" (click)="modalRef?.hide()">Cancel</div>
-      <div class="gc-cart__continue" (click)="decreaseQuantity(orderToDelete)">
+      <div
+        class="gc-cart__continue"
+        (click)="decreaseQuantity(orderToDelete); modalRef?.hide()"
+      >
         Continue
       </div>
     </div>
